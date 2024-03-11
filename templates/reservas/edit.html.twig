@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Reservas{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <div class="card mt-5">
+                    <div class="card-header">
+                        <h2 class="card-title">Editar Reserva</h2>
+                    </div>
+                    <div class="card-body">
+                        {{ include('reservas/_form.html.twig', {'button_label': 'Actualizar'}) }}  
+                        <a href="{{ path('app_reservas_index') }}" class="btn btn-secondary mt-3">Volver a la Lista</a>
+                        {{ include('reservas/_delete_form.html.twig') }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

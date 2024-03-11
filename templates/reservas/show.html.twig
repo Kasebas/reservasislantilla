@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Detalles de Reserva{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Detalles de Reserva</h1>
+
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th scope="row">Id</th>
+                    <td>{{ reserva.id }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Fecha de Check-in</th>
+                    <td>{{ reserva.fechaCheckin ? reserva.fechaCheckin|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Fecha de Check-out</th>
+                    <td>{{ reserva.fechaCheckout ? reserva.fechaCheckout|date('Y-m-d') : '' }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Estado</th>
+                    <td>{{ reserva.estado }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Precio de Reserva</th>
+                    <td>{{ reserva.precioReserva }}</td>
+                </tr>
+                <tr>
+                    <th scope="row">Tipo de Habitación</th>
+                    <td>{{ reserva.tipoHabitacion }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <a href="{{ path('app_reservas_index') }}" class="btn btn-secondary mr-2">
+            <i class="fas fa-arrow-left"></i> Volver a la Lista
+        </a>
+
+        <a href="{{ path('app_reservas_edit', {'id': reserva.id}) }}" class="btn btn-warning">
+            <i class="fas fa-edit"></i> Editar Reserva
+        </a>
+
+        {{ include('reservas/_delete_form.html.twig') }}
+    </div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Editar Usuario{% endblock %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card mt-4">
+                <div class="card-header">
+                    <h1 class="card-title">Editar Usuario</h1>
+                </div>
+                <div class="card-body">
+                    {{ include('usuarios/_form.html.twig', {'button_label': 'Actualizar'}) }}
+                </div>
+                <div class="card-footer">
+                    <a href="{{ path('app_usuarios_index') }}" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left"></i>&nbsp;Volver a la Lista
+                    </a>
+                    {{ include('usuarios/_delete_form.html.twig') }}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -21,28 +21,46 @@ class ReservasRepository extends ServiceEntityRepository
         parent::__construct($registry, Reservas::class);
     }
 
-//    /**
-//     * @return Reservas[] Returns an array of Reservas objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('r.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    //    /**
+    //     * @return Reservas[] Returns an array of Reservas objects
+    //     */
+    //    public function findByExampleField($value): array
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->orderBy('r.id', 'ASC')
+    //            ->setMaxResults(10)
+    //            ->getQuery()
+    //            ->getResult()
+    //        ;
+    //    }
 
-//    public function findOneBySomeField($value): ?Reservas
-//    {
-//        return $this->createQueryBuilder('r')
-//            ->andWhere('r.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->getQuery()
-//            ->getOneOrNullResult()
-//        ;
-//    }
+    //    public function findOneBySomeField($value): ?Reservas
+    //    {
+    //        return $this->createQueryBuilder('r')
+    //            ->andWhere('r.exampleField = :val')
+    //            ->setParameter('val', $value)
+    //            ->getQuery()
+    //            ->getOneOrNullResult()
+    //        ;
+    //    }
+
+    public function findReservasByUsuario($id_usuario): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.id_usuario = :id_usuario')
+            ->setParameter('id_usuario', $id_usuario)
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findReservasByEstado($estado): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.estado = :estado')
+            ->setParameter('estado', $estado)
+            ->getQuery()
+            ->getResult();
+    }
 }

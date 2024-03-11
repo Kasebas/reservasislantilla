@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reservas{% endblock %}
+
+{% block body %}
+    <div class="container mt-4">
+        <h1 class="mb-4">Reservas</h1>
+
+        <a href="{{ path('app_reservas_new') }}" class="btn btn-primary mb-3">
+            <i class="fas fa-plus"></i> Crear Nueva Reserva
+        </a>
+
+        <table class="table table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Check-in</th>
+                    <th scope="col">Check-out</th>
+                    <th scope="col">Estado</th>
+                    <th scope="col">Precio Reserva</th>
+                    <th scope="col">Tipo de Habitación</th>
+                    <th scope="col">Acciones</th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reserva in reservas %}
+                    <tr>
+                        <td>{{ reserva.id }}</td>
+                        <td>{{ reserva.fechaCheckin ? reserva.fechaCheckin|date('Y-m-d') : '' }}</td>
+                        <td>{{ reserva.fechaCheckout ? reserva.fechaCheckout|date('Y-m-d') : '' }}</td>
+                        <td>{{ reserva.estado }}</td>
+                        <td>{{ reserva.precioReserva }}</td>
+                        <td>{{ reserva.tipoHabitacion }}</td>
+                        <td>
+                            <a href="{{ path('app_reservas_show', {'id': reserva.id}) }}" class="btn btn-info btn-sm mr-1">
+                                <i class="fas fa-eye"></i> Consultar
+                            </a>
+                            <a href="{{ path('app_reservas_edit', {'id': reserva.id}) }}" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i>  Editar Reservar
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">No se ha encontrado reservas</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

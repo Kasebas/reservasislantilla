@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UsuariosRepository::class)]
 class Usuarios
@@ -23,10 +24,12 @@ class Usuarios
     private ?string $email = null;
 
     #[ORM\Column(length: 50)]
-    private ?string $contraseña = null;
+    private ?string $contrasena = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $rol_usuario = ['Cliente', 'Administrador'];
+    #[ORM\Column(type: 'string', length: 20)]
+    #[Assert\Choice(choices: ['Cliente', 'Administrador'])]
+    private string $rol_usuario = 'Cliente';
+
 
     #[ORM\OneToMany(targetEntity: Reservas::class, mappedBy: 'id_usuario')]
     private Collection $reservas;
@@ -65,24 +68,24 @@ class Usuarios
         return $this;
     }
 
-    public function getContraseña(): ?string
+    public function getContrasena(): ?string
     {
-        return $this->contraseña;
+        return $this->contrasena;
     }
 
-    public function setContraseña(string $contraseña): static
+    public function setContrasena(string $contrasena): static
     {
-        $this->contraseña = $contraseña;
+        $this->contrasena = $contrasena;
 
         return $this;
     }
 
-    public function getRolUsuario(): array
+    public function getRolUsuario(): string
     {
         return $this->rol_usuario;
     }
 
-    public function setRolUsuario(array $rol_usuario): static
+    public function setRolUsuario(string $rol_usuario): static
     {
         $this->rol_usuario = $rol_usuario;
 

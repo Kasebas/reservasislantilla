@@ -5,6 +5,8 @@ namespace App\Entity;
 use App\Repository\ReservasRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use phpDocumentor\Reflection\Types\Boolean;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReservasRepository::class)]
 class Reservas
@@ -24,14 +26,21 @@ class Reservas
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $fecha_checkout = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $Estado = ['Pendiente', 'Confirmada', 'Cancelada'];
+    #[ORM\Column(type: 'string', length: 20)]
+    #[Assert\Choice(choices: ['Pendiente', 'Confirmada', 'Cancelada'])]
+    private string $estado = 'Pendiente';
 
     #[ORM\Column(type: Types::DECIMAL, precision: 5, scale: 2)]
     private ?string $precioReserva = null;
 
-    #[ORM\Column(type: Types::ARRAY)]
-    private array $tipo_habitacion = ['Individual', 'Doble', 'Suite'];
+    #[ORM\Column(type: 'string', length: 20)]
+    #[Assert\Choice(choices: ['Individual', 'Doble', 'Suite'])]
+    private string $tipoHabitacion = 'Individual';
+
+    #[ORM\Column]
+    private ?bool $deleted = false;
+
+
 
     public function getId(): ?int
     {
@@ -74,14 +83,14 @@ class Reservas
         return $this;
     }
 
-    public function getEstado(): array
+    public function getEstado(): string
     {
-        return $this->Estado;
+        return $this->estado;
     }
 
-    public function setEstado(array $Estado): static
+    public function setEstado(string $estado): static
     {
-        $this->Estado = $Estado;
+        $this->estado = $estado;
 
         return $this;
     }
@@ -98,14 +107,26 @@ class Reservas
         return $this;
     }
 
-    public function getTipoHabitacion(): array
+    public function getTipoHabitacion(): string
     {
-        return $this->tipo_habitacion;
+        return $this->tipoHabitacion;
     }
 
-    public function setTipoHabitacion(array $tipo_habitacion): static
+    public function setTipoHabitacion(string $tipoHabitacion): static
     {
-        $this->tipo_habitacion = $tipo_habitacion;
+        $this->tipoHabitacion = $tipoHabitacion;
+
+        return $this;
+    }
+
+    public function isDeleted(): ?bool
+    {
+        return $this->deleted;
+    }
+
+    public function setDeleted(bool $deleted): static
+    {
+        $this->deleted = $deleted;
 
         return $this;
     }
