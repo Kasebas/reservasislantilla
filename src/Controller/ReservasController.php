@@ -5,11 +5,14 @@ namespace App\Controller;
 use App\Entity\Reservas;
 use App\Form\ReservasType;
 use App\Repository\ReservasRepository;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
+use PHPUnit\Util\Json;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 #[Route('/reservas')]
 class ReservasController extends AbstractController
@@ -77,5 +80,50 @@ class ReservasController extends AbstractController
         }
 
         return $this->redirectToRoute('app_reservas_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    //Consultas personalizadas con JSON
+    #[Route('/Json{id}', name: 'app_reservas_showJson')]
+    public function showJSON(EntityManagerInterface $entityManager, int $id_Usuario): JsonResponse
+    {
+        //http://127.0.0.1:8000/reservas/Json5
+
+        // Obtener la reserva por su ID
+        $reserva = $entityManager->getRepository(Reservas::class)->findUsuariosByEstado($id_Usuario);
+
+        // Comprobar si se encontró la reserva
+        if (!$reserva) {
+            throw $this->createNotFoundException('Reserva no encontrada');
+        }
+
+        // Construir el objeto JSON con los campos necesarios
+        $jsonReserva = [
+            'nombre_usuario' => $reserva->getIdUsuario()->getNombreUsuario(),
+            'email' => $reserva->getIdUsuario()->getEmail(),
+            'estado' => $reserva->getEstado(),
+            'fecha_checkin' => $reserva->getFechaCheckin()->format('Y-m-d'),
+            'fecha_checkout' => $reserva->getFechaCheckout()->format('Y-m-d'),
+        ];
+
+        // Devolver la respuesta JSON
+        return new JsonResponse($jsonReserva);
+    }
+
+    #[Route('/Json2_{id}', name: 'app_reservas_showJson2')]
+    public function showJSON2(EntityManagerInterface $entityManager): JsonResponse
+    {
+        //http://127.0.0.1:8000/reservas/Json2_5
+
+        $reserva = $entityManager->getRepository(Reservas::class)->findUsuariosAndReservas();
+
+        $jsonReserva = [
+            'nombre_usuario' => $reserva->getIdUsuario()->getNombreUsuario(),
+            'email' => $reserva->getIdUsuario()->getEmail(),
+            'estado' => $reserva->getEstado(),
+            'fecha_checkin' => $reserva->getFechaCheckin()->format('Y-m-d'),
+            'fecha_checkout' => $reserva->getFechaCheckout()->format('Y-m-d'),
+        ];
+
+        return $this->json($jsonReserva);
     }
 }

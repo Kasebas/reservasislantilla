@@ -63,4 +63,31 @@ class ReservasRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    public function findUsuariosByEstado($id_usuario): array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('u.nombreUsuario', 'u.email', 'r.estado', 'r.fechaCheckin', 'r.fechaCheckout')
+            ->leftJoin('r.id_usuario', 'u')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findReservaByUsuario($id_usuario): array
+    {
+        return $this->createQueryBuilder('r')
+            ->select('u.nombreUsuario', 'u.email', 'r.estado', 'r.fechaCheckin', 'r.fechaCheckout')
+            ->leftJoin('r.id_usuario', 'u')
+            ->getQuery()
+            ->getResult();
+    }
+
+    public function findUsuariosAndReservas(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->select('u.nombreUsuario', 'r.estado', 'r.precioReserva', 'r.tipoHabitacion', 'r.fechaCheckin', 'r.fechaCheckout')
+            ->join('u.reservas', 'r')
+            ->getQuery()
+            ->getResult();
+    }
 }

@@ -1,0 +1,93 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}App Reservas Resort AMA Islantilla{% endblock %}
+
+{% block body %}
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página Inicial</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            background-color: #F4F4F4;
+            /* Color de fondo */
+            color: #333333;
+            /* Color del texto */
+            overflow: hidden;
+            
+        }
+
+        .jumbotron {
+            background-image: url('https://static-resources-elementor.mirai.com/wp-content/uploads/sites/361/home_06.jpg');
+            /* Imagen de fondo del encabezado */
+            background-size: cover;
+            background-position: center;
+            color: #FFFFFF;
+            /* Color del texto del encabezado */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+            overflow: hidden;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            /* Capa semitransparente */
+        }
+
+        .jumbotron-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron">
+            <div class="overlay"></div>
+            <div class="jumbotron-content">
+                <h1 class="display-4">Bienvenido a Resort AMA Islantilla</h1>
+                <p class="lead">Tu destino de ensueño en la costa de Huelva</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <img src="https://static-resources-elementor.mirai.com/wp-content/uploads/sites/361/ama-islantilla-pool-44-1.jpg" class="card-img-top" alt="Habitaciones">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestionar Usuarios</h5>
+                        <p class="card-text">Administra los usuarios de tu aplicación.</p>
+                        <a href="/usuarios/" class="btn btn-primary"><i class="fas fa-users"></i> Gestionar Usuarios</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card mb-4">
+                    <img src="https://static-resources-elementor.mirai.com/wp-content/uploads/sites/361/ama-rooms-apartments-header-1024x682.jpg" class="card-img-top" alt="Reservas">
+                    <div class="card-body">
+                        <h5 class="card-title">Gestionar Reservas</h5>
+                        <p class="card-text">Administra las reservas de tus clientes.</p>
+                        <a href="reservas" class="btn btn-primary"><i class="fas fa-book"></i> Gestionar Reservas</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{% endblock %}
